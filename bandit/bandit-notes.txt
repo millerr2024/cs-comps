@@ -1,0 +1,80 @@
+Level 0:
+-ssh'd into bandit.labs.overthewire.org with the following command:
+	ssh -p 2220 bandit0@bandit.labs.overthewire.org
+-in the readme in the home directory, found the password:
+	NH2SXQwcBdpmTEzi3bvBHMM9H66vVXjL
+
+Level 1:
+-ran the following command to get the contents of a file in the home directory called -:
+	cat ./-
+-The contents of - were as follows:
+	rRGizSaX8Mk1RTb1CNQoXTcYZWU6lgzi
+
+Level 2:
+-I used the tab key to not have to type out the backslashes in the name of the file "spaces in this filename"
+-Password for next level:
+	aBZ0W5EmUfAf7kHTQeOwd8bauFJ2lAiG
+
+Level 3:
+-ran the following commands:
+	cd inhere
+	ls -als
+	more .hidden
+-Password for next level:
+	2EW7BBsr6aMMoJ2HjW067dm8EgX26xNe
+
+Level 4:
+-ran the following commands:
+	cd inhere
+	more ./-file00
+	more ./-file01
+	more ./-file02
+	more ./-file03
+	more ./-file04
+	more ./-file05
+ 	more ./-file06
+	more ./-file07
+-I'm sure there must be an easier way to do this. I'm not sure what it'd be.
+-Password for next level:
+	lrIWWI6bB37kxfiCQZqUdOIYfr6eEeqR
+
+Level 5:
+-Ran the following commands (referencing find's manual page):
+	find . -size 1033c \! -executable
+	more inhere/maybehere07/.file2
+-Password for next level:
+	P4L4vucdmLnm8I7Vl7jG1ApGSfjYKqJU
+
+Level 6:
+-Ran the following commands:
+	find / -user bandit7 -group bandit6 -size 33c
+	more /var/lib/dpkg/info/bandit7.password
+-Password for next level:
+	z7WtoNQU2XfjmMtWA8u5rN4vzqu4v99S
+
+Level 7:
+-Ran the following commands:
+	cat data.txt | grep millionth
+-Password for next level:
+	TESKZC0XvTetK0S9xNwm25STk5iWrBvP
+
+Level 8:
+-Ran the following command:
+	sort data.txt | uniq -u
+-Password for next level:
+	EN632PlfYiZbn3PhVK3XOGSlNInNE00t
+
+Level 9:
+-Ran the following command:
+	more data.txt | grep -a ==
+-Password for next level:
+	G7w8LIi6J3kTb8A7j9LgrywtEUlyyp6s 
+
+Level 10:
+-Ran the following command:
+	base64 -d data.txt
+-Password for next level:
+	6zPeziLdR2RKNdNYFNb6nVCKzphlXHBM
+
+
+
