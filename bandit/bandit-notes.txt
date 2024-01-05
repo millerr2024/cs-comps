@@ -85,3 +85,6 @@ Level 10:
 -Password for next level:
 	6zPeziLdR2RKNdNYFNb6nVCKzphlXHBM
 -Note: base64 -d means decode a file from base64.
+
+Level 11:
+-I got stuck on this one.
