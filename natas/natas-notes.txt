@@ -1,0 +1,50 @@
+Level 0:
+-Steps I took:
+	1) Right clicked and selected "Inspect"
+	2) Clicked through the HTML until I found the following line under "<body>" and "<div id="content">":
+	-<!--The password for natas1 is g9D9cREhslqBKtcA2uocGHPfMZVzeFK6 -->
+-Password for next level:
+	g9D9cREhslqBKtcA2uocGHPfMZVzeFK6
+
+Level 1:
+-Steps I took:
+	1) Typed Control + Shift + C
+	2) Clicked through the HTML until I found the following line under "<body>" and "<div id="content">":
+		<!--The password for natas2 is h4ubbcXrWqsTo7GGnnUMLppXbOogfBZ7 -->
+-Password for next level:
+	h4ubbcXrWqsTo7GGnnUMLppXbOogfBZ7
+
+Level 2:
+-Steps I took:
+	1) Right clicked and selected "Inspect"
+	2) Clicked through the HTML until I found the following line under "<body>" and "<div id="content">":
+		<img src="files/pixel.png">
+	3) Went to http://natas2.natas.labs.overthewire.org/files/
+	4) Clicked on "users.txt"
+	5) Found password listed as "natas3:G6ctbMJ5Nb4cbFwhpMPSvxGHhQ7I6W8Q"
+-Password for next level:
+	G6ctbMJ5Nb4cbFwhpMPSvxGHhQ7I6W8Q
+-Notes: had to look up solution for this level, which was dissapointing.
+
+Level 3:
+-Steps I took:
+	1) Went to http://natas3.natas.labs.overthewire.org/robots.txt and saw the following:
+		User-agent: *
+		Disallow: /s3cr3t/
+	2) Went to http://natas3.natas.labs.overthewire.org/s3cr3t/
+	3) Clicked on users.txt where I found the password
+-Password for next level:
+	tKOcJIbzM4lTs8hbCmzn5Zr4434fGZQm
+-Note: I had to lookup the solution to this level. Less dissapointing this time because there was no chance I would have figured this out. 
+-Note: Googled what robots.txt is. Wikipedia said:
+	"robots.txt is the filename used for implementing the Robots Exclusion Protocol, a standard 
+	used by websites to indicate to visiting web crawlers and other web robots which portions of 
+	the website they are allowed to visit.
+	
+	This relies on voluntary compliance. Not all robots comply with the standard; indeed, email 
+	harvesters, spambots, malware and robots that scan for security vulnerabilities may very well
+	start with the portions of the website they have been asked (by the Robots Exclusion Protocol)
+	to stay out of."
+
+Level 4:
+
