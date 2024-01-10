@@ -1,12 +1,12 @@
-Level 0:
+Level 0->1:
 -Steps I took:
 	1) Right clicked and selected "Inspect"
 	2) Clicked through the HTML until I found the following line under "<body>" and "<div id="content">":
-	-<!--The password for natas1 is g9D9cREhslqBKtcA2uocGHPfMZVzeFK6 -->
+		-<!--The password for natas1 is g9D9cREhslqBKtcA2uocGHPfMZVzeFK6 -->
 -Password for next level:
 	g9D9cREhslqBKtcA2uocGHPfMZVzeFK6
 
-Level 1:
+Level 1->2:
 -Steps I took:
 	1) Typed Control + Shift + C
 	2) Clicked through the HTML until I found the following line under "<body>" and "<div id="content">":
@@ -14,28 +14,26 @@ Level 1:
 -Password for next level:
 	h4ubbcXrWqsTo7GGnnUMLppXbOogfBZ7
 
-Level 2:
+Level 2->3:
 -Steps I took:
 	1) Right clicked and selected "Inspect"
-	2) Clicked through the HTML until I found the following line under "<body>" and "<div id="content">":
-		<img src="files/pixel.png">
+	2) Clicked through the HTML until I found the following line in the html under "<body>" and "<div id="content">":
+			<img src="files/pixel.png">
 	3) Went to http://natas2.natas.labs.overthewire.org/files/
 	4) Clicked on "users.txt"
 	5) Found password listed as "natas3:G6ctbMJ5Nb4cbFwhpMPSvxGHhQ7I6W8Q"
 -Password for next level:
 	G6ctbMJ5Nb4cbFwhpMPSvxGHhQ7I6W8Q
--Notes: had to look up solution for this level, which was dissapointing.
 
-Level 3:
+Level 3->4:
 -Steps I took:
 	1) Went to http://natas3.natas.labs.overthewire.org/robots.txt and saw the following:
-		User-agent: *
-		Disallow: /s3cr3t/
+			User-agent: *
+			Disallow: /s3cr3t/
 	2) Went to http://natas3.natas.labs.overthewire.org/s3cr3t/
 	3) Clicked on users.txt where I found the password
 -Password for next level:
 	tKOcJIbzM4lTs8hbCmzn5Zr4434fGZQm
--Note: I had to lookup the solution to this level. Less dissapointing this time because there was no chance I would have figured this out. 
 -Note: Googled what robots.txt is. Wikipedia said:
 	"robots.txt is the filename used for implementing the Robots Exclusion Protocol, a standard 
 	used by websites to indicate to visiting web crawlers and other web robots which portions of 
@@ -46,5 +44,98 @@ Level 3:
 	start with the portions of the website they have been asked (by the Robots Exclusion Protocol)
 	to stay out of."
 
-Level 4:
+Level 4->5:
+-Steps I took:
+	1) I went on burpsuite, enabled the proxy feature, opened a browser through burpsuite, and went to http://natas4.natas.labs.overthewire.org on that browser.
+	2) On http://natas4.natas.labs.overthewire.org, I entered the username and password for natas4. I then pressed refresh.
+	3) Looking at my HTTP history on burpsuite, I sent one of the http requests for /index.php to burpsuite's repeater.
+	4) From there, I modified the HTTP request, adding the flag:
+		Referer: http://natas5.natas.labs.overthewire.org/
+	5) I resent the http request and got the following:
+		HTTP/1.1 200 OK
+
+			Date: Tue, 09 Jan 2024 03:23:16 GMT
+
+			Server: Apache/2.4.52 (Ubuntu)
+
+			Vary: Accept-Encoding
+
+			Content-Length: 962
+
+			Connection: close
+
+			Content-Type: text/html; charset=UTF-8
+
+
+
+			<html>
+			<head>
+			<!-- This stuff in the header has nothing to do with the level -->
+			<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+			<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+			<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+			<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+			<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+			<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+			<script>var wechallinfo = { "level": "natas4", "pass": "tKOcJIbzM4lTs8hbCmzn5Zr4434fGZQm" };</script></head>
+			<body>
+			<h1>natas4</h1>
+			<div id="content">
+
+			Access granted. The password for natas5 is Z0NsrtIkJoKALBCLi5eqFfcRN82Au2oD
+			<br/>
+			<div id="viewsource"><a href="index.php">Refresh page</a></div>
+			</div>
+			</body>
+			</html>
+
+-Password for next level: 
+	Z0NsrtIkJoKALBCLi5eqFfcRN82Au2oD
+
+Level 5->6:
+-Steps I took:
+	1) I right clicked on the page, selected "Inspect", selected the "Application" tab, and looked under "Cookies"
+	2) Changed the cookie with the name "loggedin" from 0 to 1
+	3) Refreshed page
+-Password for next level: 
+	fOIvE0MDtPTgRhqmmvvAOt2EfXR6uQgR
+
+Level 6->7:
+-Steps I took:
+	1) Looked at source code and saw that it has the following line:
+		include "includes/secret.inc";
+	2) Went to http://natas6.natas.labs.overthewire.org/includes/secret.inc and saw that $secret = "FOEIUWGHFEEUHOFUOIU";
+	3) Went back to http://natas6.natas.labs.overthewire.org/ and inputted FOEIUWGHFEEUHOFUOIU into the box
+-Password for next level:
+	jmxSiH3SP6Sonf8dv66ng8v1cIEdjXWr
+
+Level 7->8:
+-Steps I took:
+	1) I right clicked on the page, selected "Inspect", and saw the following note in the html:
+		<!-- hint: password for webuser natas8 is in /etc/natas_webpass/natas8 -->
+	2) I went to http://natas7.natas.labs.overthewire.org/index.php?page=/etc/natas_webpass/natas8
+-Password for next level:
+	a6bZCNYwdKqN5cGP11ZdtPg0iImQQhAB
+
+Level 8->9:
+-Steps I took:
+	1) I examined the sourcecode.
+	2) I wrote the following php code and ran it on my machine:
+			<?php print(base64_decode(strrev(hex2bin('3d3d516343746d4d6d6c315669563362'))));?>
+		From this, I got the following output:
+			oubWYf2kBq
+	3) I inputted oubWYf2kBq into the input secret box and got the password for the next level.
+-Password for next level:
+	Sda6t0vkOPkM8YeOZkAGVhFoaplvlJFd
+
+Level 9->10:
+-Steps I took:
+	1) I examined the sourcecode.
+	2) I inputted the following into the box:
+		African dictionary.txt; find / -iname "*natas*10*"; Africans
+	3) I realized /etc/natas_webpass/natas10 was among the results and that path+filename resembled the path+filename in level 7->8. 
+	4) I inputted the following into the box:
+                African dictionary.txt; cat /etc/natas_webpass/natas10; Africans
+-Password for next level:
+	D44EcsFkLxPIkAAKLosx8z3hxX1Z4MCE
 
