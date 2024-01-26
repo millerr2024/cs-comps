@@ -1,0 +1,186 @@
+In setting up our vulnerable virtual machine, we started with the base Ubuntu
+virtual machine from Mike Tie. We then followed these steps:
+
+1) In the cslab account, we created a file in /var/www/html called index.php:
+
+            <!DOCTYPE html>
+
+            <html lang="en">
+
+            <head>
+
+                <meta charset="UTF-8">
+
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+                <title>Target One</title>
+
+                <link rel="icon" href="./favicon.ico" type="image/x-icon">
+
+            </head>
+
+            <body>
+
+                <main>
+
+                    <h1>Login</h1>
+
+                    <form action="register.php" method="post">
+
+                    <label for="username">Username:</label>
+
+                    <input id="username" name="username" required="" type="text" />
+
+                    <label for="password">Password:</label>
+
+                    <input id="password" name="password" required="" type="password" />
+
+                    <input name="Log in" type="submit" value="Log in" />
+
+                    </form>
+
+                    <?php
+                    if(isset($_COOKIE['LoggedIn']) && $_COOKIE['LoggedIn'] == "True")
+                    {
+
+                        header('Location: shell.php');
+                    }
+                    else
+                    {
+                            setcookie("LoggedIn", "False", time() + (60 * 20 ));
+                    }
+                    ?>
+
+                    </main>
+
+                    <script src="index.js"></script>
+
+            </body>
+
+            </html>
+
+index.php has three main functions. If a cookie called 'LoggedIn' is set equal to 'True', 
+index.php automatically sends the user to a file called shell.php. If 'LoggedIn' is not set
+or is not set equal to 'True', index.php sets the cookie 'LoggedIn' equal to 'False' for 20 
+minutes. Finally, index.php displays a login box which takes in a username and password and 
+sends them to register.php. 
+
+2) In the cslab account, we created a file in /var/www/html called register.php:
+
+            <?php
+            $username = $_POST['username']; $password = $_POST['password'];
+            $jeffUsername = "jondich";
+            $jeffPassword = "iDontLikeMooses!";
+
+            if ($jeffUsername == $username && $jeffPassword == $password)
+            {
+                    setcookie("LoggedIn", "True", time() + (60 * 20 ));
+                    header('Location: shell.php');
+            }
+            else
+            {
+                    echo "Access denied";
+            }
+            ?>
+    
+    This file gets the username and password variables from index.php and compares them to a stored
+    username and password "jondich" and "iDontLikeMooses!", respectively. If the username and
+    password passed in by the user (through index.php) match the stored username and password,
+    register.php will set the cookie "LoggedIn" equal to "True" and send the user to shell.php.
+    Otherwise, register.php will print out "Access denied".
+
+3) In the cslab account, we created a file in /var/www/html called shell.php:
+
+            <!DOCTYPE html>
+
+            <html lang="en">
+
+            <head>
+
+                <meta charset="UTF-8">
+
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+                <title>Target 1 Shell</title>
+
+                <link rel="stylesheet" href="./style.css">
+
+                <link rel="icon" href="./favicon.ico" type="image/x-icon">
+
+            </head>
+
+            <body>
+
+                <main>
+
+                    <h1>Enter a command!</h1>
+                    <form action="" method="get">
+                    <input type="text" name="command">
+                    </form>
+                    <?php
+                            $command = $_GET['command'];
+                            $output = exec($command);
+                            echo $output
+                    ?>
+
+                </main>
+
+            </body>
+
+            </html>
+
+    shell.php generates a window with a box for user input. shell.php then runs whatever the user
+    input is as a command on the server, displaying the command's output to the user.
+
+4) In the cslab account, we created a file in /var/www/html called index.html:
+
+            <!DOCTYPE html>
+
+            <html lang="en">
+
+            <head>
+
+                <meta charset="UTF-8">
+
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+                <title>Target 1 Shell</title>
+
+                <link rel="stylesheet" href="./style.css">
+
+                <link rel="icon" href="./favicon.ico" type="image/x-icon">
+
+            </head>
+
+            <body>
+
+                <main>
+
+                    <h1>Welcome to Shell.com!</h1>
+                    <p><a href="http://192.168.152.139/index.php">Click here to login!</a></p>
+                </main>
+
+            </body>
+
+            </html>
+
+    index.html basically just contains a link to index.php. We added this file because the way
+    the apache2 server seems to be set up is that if you search up the server's IP address in
+    a browser, it'll load a file called index.html. Thus, we wanted to have a way for the user
+    to simply be able to search up the server's IP address and find our web application.
+
+5) In order to run the apache web server as soon as the ubuntu server started up, we included the
+following line in the cslab account .bashrc file:
+
+    sudo systemctl start apache2
+
+6) In order to run sudo systemctl start apache2 at startup, cslab needed to be able to run the 
+sudo command without a password. So, we added the following line to the server's visudo file:
+
+    %cslab ALL=(ALL) NOPASSWD:ALL
