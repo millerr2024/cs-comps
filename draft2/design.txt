@@ -1,0 +1,13 @@
+Lysander, Hannah, Valentina								         2/8/2024
+Design Two
+	
+	On the front end of our design, we have a pet adoption website that connects to a PostgreSQL database which, alongside some pet information, stores salted and hashed usernames and passwords. This website is vulnerable to blind SQL injection and, by sending true/false queries to the database through a URL, the attacker can get a password stored in a database. 
+	After figuring out the password (through Hashcat) and finding the login page (using Gobuster), the attacker will use the password to log into the website and upload a webshell to the server. This webshell is in a php file with a modified file signature to bypass the website’s file type check (it only accepts picture files).
+	Now that the attacker can send commands to the server, they’ll find the .git folder and a version of the website code where we used a hardcoded password to login to the database. They’ll then use the password to log in as another user on the server (store-manager).
+Once the attacker has logged in as store-manager, they’ll notice a file which runs as sudo (through setuid) and, by messing around a bit, the attacker can use this file to run commands as sudo.
+
+Implementation
+In terms of our current implementation status, we’re pretty far along. Our website is fully created and integrated with the database. We have very briefly tested our SQL injection attack and it’s looking promising, allowing an attacker to get a hashed password stored in the database. Furthermore, we have file uploads working and our .git folder set up appropriately, though we still have a bit of testing to do there. Finally, we have written and tested the ‘setuid script’ and it’s working great. 
+Overall, going forward, we’re going to be spending our next couple days finishing stuff up and beginning our research. In doing so, Hannah plans to deep dive into password security, Valentina plans to learn more about SQL injection, and Lysander wants to get comfortable with git. 
+We’re feeling pretty good about the work we’ve done and don’t have many concerns or questions at the moment. 
+
